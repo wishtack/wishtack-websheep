@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Websheep</title>
+    <script>
+
+        /* https://developer.mozilla.org/en/docs/Web/API/Fetch_API */
+        fetch('http://localhost:3000/csrf/v1/todos')
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+            });
+
+    </script>
+</head>
+<body>
+
+    <h1>Welcome to Websheep's Attacker</h1>
+
+</body>
+</html>

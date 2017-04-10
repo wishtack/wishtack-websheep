@@ -1,0 +1,25 @@
+{
+  "name": "wishtack-websheep",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "start:app": "node src/app",
+    "start:attacker": "http-server src/attacker",
+    "start": "npm-run-all --parallel start:*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wishtack",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "1.17.1",
+    "cookie-parser": "1.4.3",
+    "cors": "2.8.3",
+    "express": "4.15.2",
+    "http-server": "0.10.0",
+    "jsonwebtoken": "4.0.0",
+    "jwk-to-pem": "1.2.6",
+    "npm-run-all": "4.0.2",
+    "rsa-pem-to-jwk": "1.1.3"
+  }
+}
