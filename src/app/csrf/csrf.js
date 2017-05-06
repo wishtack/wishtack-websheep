@@ -25,9 +25,9 @@ router.get('/', (req, res) => {
 <body>
     <h1>C.S.R.F. (Cross-Site Request Forgery)</h1>
     <ul>
-        <li><a href="/csrf/v1/todos">V1</a></li>
-        <li><a href="/csrf/v2/todos">V2</a></li>
-        <li><a href="/csrf/v3/todos">V3</a></li>
+        <li><a href="/csrf/v1/todos">C.S.R.F. V1</a></li>
+        <li><a href="/csrf/v2/todos">C.S.R.F. V2</a></li>
+        <li><a href="/csrf/v3/todos">C.S.R.F. V3</a></li>
     </ul>
 </body>
 </html>
