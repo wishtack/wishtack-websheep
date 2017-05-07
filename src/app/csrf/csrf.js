@@ -9,15 +9,11 @@
 
 const express = require('express');
 
-const csrfV1 = require('./csrf-v1');
-const csrfV2 = require('./csrf-v2');
-const csrfV3 = require('./csrf-v3');
-
 const router = express.Router();
 
-router.use('/v1', csrfV1);
-router.use('/v2', csrfV2);
-router.use('/v3', csrfV3);
+router.use('/v1', require('./csrf-v1'));
+router.use('/v2', require('./csrf-v2'));
+router.use('/v3', require('./csrf-v3'));
 
 router.get('/', (req, res) => {
    res.send(`

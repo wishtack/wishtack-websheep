@@ -9,11 +9,10 @@
 
 const express = require('express');
 
-const jwtV1 = require('./jwt-v1');
-
 const router = express.Router();
 
-router.use('/v1', jwtV1);
+router.use('/v1', require('./jwt-v1'));
+router.use('/v2', require('./jwt-v2'));
 
 router.get('/', (req, res) => {
     res.send(`
@@ -22,6 +21,7 @@ router.get('/', (req, res) => {
     <h1>J.W.T. (Json Web Token)</h1>
     <ul>
         <li><a href="/jwt/v1">JWT V1</a></li>
+        <li><a href="/jwt/v2">JWT V2</a></li>
     </ul>
 </body>
 </html>

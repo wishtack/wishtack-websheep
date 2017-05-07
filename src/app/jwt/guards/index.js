@@ -9,5 +9,6 @@
 
 module.exports = {
     isAuthenticatedGuard: require('./is-authenticated-guard'),
+    isAuthenticatedWithVerificationGuard: require('./is-authenticated-with-verification-guard'),
     isOwnerGuard: require('./is-owner-guard')
 };

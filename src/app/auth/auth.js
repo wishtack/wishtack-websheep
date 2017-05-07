@@ -9,13 +9,10 @@
 
 const express = require('express');
 
-const authV1 = require('./auth-v1');
-const authV2 = require('./auth-v2');
-
 const router = express.Router();
 
-router.use('/v1', authV1);
-router.use('/v2', authV2);
+router.use('/v1', require('./auth-v1'));
+router.use('/v2', require('./auth-v2'));
 
 router.get('/', (req, res) => {
     res.send(`
