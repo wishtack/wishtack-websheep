@@ -36,7 +36,7 @@ router.get(
         let user = userStore.getUserById({userId: userId});
 
         if (user == null) {
-            res.send(404);
+            res.sendStatus(404);
             return;
         }
 
@@ -60,7 +60,7 @@ router.patch(
         let user = userStore.getUserById({userId: userId});
 
         if (user == null) {
-            res.send(404);
+            res.sendStatus(404);
             return;
         }
 

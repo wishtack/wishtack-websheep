@@ -7,11 +7,14 @@
 
 'use strict';
 
-const { userStore } = require('./../user/user-store');
+const jwt = require('jsonwebtoken');
+
+const { userStore } = require('./../../auth/user/user-store');
 
 module.exports = (req, res, next) => {
 
     let authorizationHeader = req.header('Authorization');
+    let claims;
     let token;
     let user;
 
@@ -19,7 +22,9 @@ module.exports = (req, res, next) => {
         token = authorizationHeader.split(' ')[1];
     }
 
-    user = userStore.getUserByToken({token: token});
+    claims = jwt.decode(token);
+
+    user = userStore.getUserById({userId: claims.sub});
 
     if (user == null) {
         res.sendStatus(403);

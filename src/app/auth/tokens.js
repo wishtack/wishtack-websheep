@@ -20,7 +20,7 @@ router.post('/', (req, res) => {
     let user = userStore.getUserByUsername({username: username});
 
     if (user == null || user.password !== password) {
-        res.send(403);
+        res.sendStatus(403);
         return;
     }
 

@@ -29,7 +29,7 @@ router.get('/users/:userId', isAuthenticatedGuard, (req, res) => {
     let user = userStore.getUserById({userId: userId});
 
     if (user == null) {
-        res.send(404);
+        res.sendStatus(404);
         return;
     }
 

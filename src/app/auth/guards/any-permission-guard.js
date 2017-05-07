@@ -17,7 +17,7 @@ module.exports = (...permissionList) => {
             }
         }
 
-        res.send(403);
+        res.sendStatus(403);
 
     }
 };
