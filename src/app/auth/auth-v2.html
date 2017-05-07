@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>Authentication & Authorization V1</title>
+    <title>Authentication & Authorization V2</title>
 
     <script>
 
@@ -78,7 +78,7 @@
                     let username = event.target.querySelector('input[name="username"]').value;
                     let password = event.target.querySelector('input[name="password"]').value;
 
-                    fetch('/auth/v1/tokens', {
+                    fetch('/auth/v2/tokens', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -110,7 +110,7 @@
 
                         })
                         .then((state) => {
-                            return fetch(`/auth/v1/users/${encodeURIComponent(state.userId)}`, {
+                            return fetch(`/auth/v2/users/${encodeURIComponent(state.userId)}`, {
                                 headers: {
                                     'Authorization': `Bearer ${state.token}`
                                 }
@@ -176,12 +176,14 @@
 
         }
 
-        const stateStore = new StateStore();
-        new FormComponent({stateStore: stateStore});
-        new UserInfoComponent({stateStore: stateStore});
-
         document.addEventListener('DOMContentLoaded', () => {
+
+            const stateStore = new StateStore();
+            new FormComponent({stateStore: stateStore});
+            new UserInfoComponent({stateStore: stateStore});
+
             stateStore.updateState({state: new State()});
+
         });
 
     </script>
@@ -189,9 +191,10 @@
 </head>
 <body>
 
-<h1>Authentication & Authorization V1</h1>
+<h1>Authentication & Authorization V2</h1>
 
 <p>Here are Foo BAR's credentials "foobar:123456". Try to steal John DOE's data.</p>
+<p>HINT: Users might have an "isAdmin" property.</p>
 
 <div id="wt-user-form"></div>
 <div id="wt-user-info"></div>

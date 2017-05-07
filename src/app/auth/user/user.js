@@ -12,6 +12,7 @@ class User {
     constructor(args = {}) {
         this.id = args.id;
         this.firstName = args.firstName;
+        this.isAdmin = args.isAdmin;
         this.lastName = args.lastName;
         this.username = args.username;
         this.password = args.password;

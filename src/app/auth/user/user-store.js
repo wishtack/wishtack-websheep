@@ -16,6 +16,7 @@ class UserStore {
             new User({
                 id: 'foobar',
                 firstName: 'Foo',
+                isAdmin: false,
                 lastName: 'BAR',
                 username: 'foobar',
                 password: '123456',
@@ -25,6 +26,7 @@ class UserStore {
             new User({
                 id: 'johndoe',
                 firstName: 'John',
+                isAdmin: false,
                 lastName: 'DOE',
                 username: 'johndoe',
                 password: '654321',
@@ -48,6 +50,22 @@ class UserStore {
 
     getUserList() {
         return this._userList;
+    }
+
+    updateUser({user}) {
+
+        /* Enforcing immutability. */
+        this._userList = this._userList.map((_user) => {
+
+            /* Replacing on match. */
+            if (_user.id === user.id) {
+                return user;
+            }
+
+            return _user;
+
+        });
+
     }
 
 }

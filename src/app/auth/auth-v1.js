@@ -9,8 +9,10 @@
 
 const bodyParser = require('body-parser');
 const express = require('express');
-const { isAuthenticatedGuard } = require('./is-authenticated-guard');
-const { userStore } = require('./user-store');
+
+const tokensRouter = require('./tokens');
+const { isAuthenticatedGuard } = require('./guards');
+const { userStore } = require('./user/user-store');
 
 const router = express.Router();
 
@@ -18,23 +20,7 @@ router.use(bodyParser.json());
 
 router.get('/', (req, res) => res.sendFile(`${__dirname}/auth-v1.html`));
 
-router.post('/tokens', (req, res) => {
-
-    let {username, password} = req.body;
-
-    let user = userStore.getUserByUsername({username: username});
-
-    if (user == null || user.password !== password) {
-        res.send(403);
-        return;
-    }
-
-    res.send({
-        userId: user.id,
-        token: user.token
-    });
-
-});
+router.use('/tokens', tokensRouter);
 
 router.get('/users/:userId', isAuthenticatedGuard, (req, res) => {
 
