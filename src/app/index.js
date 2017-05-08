@@ -8,7 +8,10 @@
 'use strict';
 
 const express = require('express');
+const expressHandlebars = require('express-handlebars');
+const expressHandlebarsSections = require('express-handlebars-sections');
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 const auth = require('./auth/auth');
 const csrf = require('./csrf/csrf');
@@ -16,7 +19,21 @@ const jwt = require('./jwt/jwt');
 
 const app = express();
 
+app.engine('hbs', expressHandlebars({
+    defaultLayout: 'layout',
+    extname: '.hbs',
+    helpers: {
+        section: expressHandlebarsSections()
+    },
+    layoutsDir: __dirname
+}));
+
+app.set('view engine', 'hbs');
+app.set('views', __dirname);
+
+
 app.use(cookieParser());
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.use('/auth', auth);
 app.use('/csrf', csrf);
@@ -30,21 +47,9 @@ app.get('/', (req, res) => {
         res.cookie('id_token', 'TOKEN');
     }
 
-    res.send(`
-<html>
-<head>
-    <title>Websheep</title>
-</head>
-<body>
-    <h1>Welcome to Websheep</h1>
-    <ul>
-        <li><a href="/auth">Authentication & Authorization</a></li>
-        <li><a href="/csrf">C.S.R.F. (Cross-Site Request Forgery)</a></li>
-        <li><a href="/jwt">J.W.T. (Json Web Token)</a></li>
-    </ul>
-</body>
-</html>
-`);
+    res.render('index', {
+        title: 'Welcome to Websheep'
+    });
 
 });
 

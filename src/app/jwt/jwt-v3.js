@@ -20,7 +20,9 @@ const router = express.Router();
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => res.sendFile(`${__dirname}/jwt-v3.html`));
+router.get('/', (req, res) => res.render('jwt/jwt-v3', {
+    title: 'JWT V3'
+}));
 
 router.use('/tokens', (req, res) => {
 

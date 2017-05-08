@@ -1,6 +1,6 @@
 {
   "name": "wishtack-websheep",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "",
   "main": "src/app.js",
   "scripts": {
@@ -16,6 +16,8 @@
     "cookie-parser": "1.4.3",
     "cors": "2.8.3",
     "express": "4.15.2",
+    "express-handlebars": "3.0.0",
+    "express-handlebars-sections": "1.0.1",
     "http-server": "0.10.0",
     "jsonwebtoken": "4.0.0",
     "jwk-to-pem": "1.2.6",

@@ -21,7 +21,9 @@ process.env.JWT_HMAC_SECRET = 'MY_INSECURE_JWT_HMAC_SECRET';
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => res.sendFile(`${__dirname}/jwt-v2.html`));
+router.get('/', (req, res) => res.render('jwt/jwt-v2', {
+    title: 'JWT V2'
+}));
 
 router.use('/tokens', (req, res) => {
 

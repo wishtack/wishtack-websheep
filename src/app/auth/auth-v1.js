@@ -18,7 +18,9 @@ const router = express.Router();
 
 router.use(bodyParser.json());
 
-router.get('/', (req, res) => res.sendFile(`${__dirname}/auth-v1.html`));
+router.get('/', (req, res) => res.render('auth/auth-v1', {
+    title: 'Authentication & Authorization V1'
+}));
 
 router.use('/tokens', tokensRouter);
 
