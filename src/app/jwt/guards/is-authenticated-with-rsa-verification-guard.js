@@ -7,6 +7,7 @@
 
 'use strict';
 
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
 const { userStore } = require('./../../auth/user/user-store');
@@ -23,7 +24,7 @@ module.exports = (req, res, next) => {
     }
 
     try {
-        claims = jwt.verify(token, process.env.JWT_HMAC_SECRET);
+        claims = jwt.verify(token, fs.readFileSync(`${__dirname}/../public.pem`));
     }
     catch (error) {
         res.sendStatus(403);

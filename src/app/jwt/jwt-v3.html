@@ -2,7 +2,7 @@
 <html>
 <head>
 
-    <title>JWT V2</title>
+    <title>JWT V3</title>
 
     <script>
 
@@ -78,7 +78,7 @@
                     let username = event.target.querySelector('input[name="username"]').value;
                     let password = event.target.querySelector('input[name="password"]').value;
 
-                    fetch('/jwt/v2/tokens', {
+                    fetch('/jwt/v3/tokens', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -110,7 +110,7 @@
 
                         })
                         .then((state) => {
-                            return fetch(`/jwt/v2/users/${encodeURIComponent(state.userId)}`, {
+                            return fetch(`/jwt/v3/users/${encodeURIComponent(state.userId)}`, {
                                 headers: {
                                     'Authorization': `Bearer ${state.token}`
                                 }
@@ -191,10 +191,11 @@
 </head>
 <body>
 
-<h1>JWT V2</h1>
+<h1>JWT V3</h1>
 
 <p>Here are Foo BAR's credentials "foobar:123456". Try to steal John DOE's data.</p>
-<p>HINT: Fuzz the API.</p>
+<p>HINT: Analyze the token.</p>
+<p><span>HINT: The public key is here: </span><a href="/jwt/v3/key">/jwt/v3/key</a><span>.</span></p>
 
 <div id="wt-user-form"></div>
 <div id="wt-user-info"></div>

@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
-const { isAuthenticatedGuard, isAuthenticatedWithVerificationGuard, isOwnerGuard } = require('./guards');
+const { isAuthenticatedWithVerificationGuard, isOwnerGuard } = require('./guards');
 const { userStore } = require('../auth/user/user-store');
 
 const router = express.Router();

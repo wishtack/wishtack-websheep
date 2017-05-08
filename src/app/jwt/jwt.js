@@ -13,6 +13,7 @@ const router = express.Router();
 
 router.use('/v1', require('./jwt-v1'));
 router.use('/v2', require('./jwt-v2'));
+router.use('/v3', require('./jwt-v3'));
 
 router.get('/', (req, res) => {
     res.send(`
@@ -22,6 +23,7 @@ router.get('/', (req, res) => {
     <ul>
         <li><a href="/jwt/v1">JWT V1</a></li>
         <li><a href="/jwt/v2">JWT V2</a></li>
+        <li><a href="/jwt/v3">JWT V3</a></li>
     </ul>
 </body>
 </html>
