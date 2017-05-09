@@ -14,7 +14,7 @@ const jwt = require('jsonwebtoken');
 const rsaPemToJwk = require('rsa-pem-to-jwk');
 
 const { isAuthenticatedWithRsaVerificationGuard, isOwnerGuard } = require('./guards');
-const { userStore } = require('../auth/user/user-store');
+const { userStore } = require('../user/user-store');
 
 const router = express.Router();
 

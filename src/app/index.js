@@ -39,19 +39,9 @@ app.use('/auth', auth);
 app.use('/csrf', csrf);
 app.use('/jwt', jwt);
 
-app.get('/', (req, res) => {
-
-    const id_token = req.cookies.id_token;
-
-    if (id_token == null) {
-        res.cookie('id_token', 'TOKEN');
-    }
-
-    res.render('index', {
-        title: 'Welcome to Websheep'
-    });
-
-});
+app.get('/', (req, res) => res.render('index', {
+    title: 'Welcome to Websheep'
+}));
 
 app.listen(3000, function () {
     console.log('Websheep listening on port 3000!')

@@ -33,13 +33,13 @@ router.use(cors({
 }));
 router.use(bodyParser.json());
 
-router.get('/todos', isAuthorizedGuard, (req, res) => {
+router.get('/', (req, res) => res.render('csrf/csrf-v1', {
+    title: 'C.S.R.F. V1'
+}));
 
-    res.send({
-        data: todoList
-    });
-
-});
+router.get('/todos', isAuthorizedGuard, (req, res) => res.send({
+    data: todoList
+}));
 
 router.post('/todos', isAuthorizedGuard, (req, res) => {
 

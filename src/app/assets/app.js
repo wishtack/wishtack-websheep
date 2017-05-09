@@ -179,10 +179,12 @@ class UserInfoComponent {
 
 }
 
-const stateStore = new StateStore();
-new FormComponent({apiBaseUrl: window.API_BASE_URL, stateStore: stateStore});
-new UserInfoComponent({stateStore: stateStore});
-
 document.addEventListener('DOMContentLoaded', () => {
+
+    const stateStore = new StateStore();
+    new FormComponent({apiBaseUrl: window.API_BASE_URL, stateStore: stateStore});
+    new UserInfoComponent({stateStore: stateStore});
+
     stateStore.updateState({state: new State()});
+
 });

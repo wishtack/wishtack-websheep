@@ -12,7 +12,7 @@ const express = require('express');
 
 const tokensRouter = require('./tokens');
 const { isAuthenticatedGuard } = require('./guards');
-const { userStore } = require('./user/user-store');
+const { userStore } = require('../user/user-store');
 
 const router = express.Router();
 

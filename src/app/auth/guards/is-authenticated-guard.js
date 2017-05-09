@@ -7,7 +7,7 @@
 
 'use strict';
 
-const { userStore } = require('./../user/user-store');
+const { userStore } = require('../../user/user-store');
 
 module.exports = (req, res, next) => {
 

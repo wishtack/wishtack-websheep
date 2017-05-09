@@ -12,8 +12,8 @@ const express = require('express');
 
 const tokensRouter = require('./tokens');
 const { anyPermissionGuard, isAdminPermission, isAuthenticatedGuard } = require('./guards');
-const { User } = require('./user/user');
-const { userStore } = require('./user/user-store');
+const { User } = require('../user/user');
+const { userStore } = require('../user/user-store');
 
 const router = express.Router();
 

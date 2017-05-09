@@ -9,7 +9,7 @@
 
 const express = require('express');
 
-const { userStore } = require('./user/user-store');
+const { userStore } = require('../user/user-store');
 
 const router = express.Router();
 

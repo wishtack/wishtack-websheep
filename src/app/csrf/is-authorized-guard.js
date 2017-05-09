@@ -7,10 +7,12 @@
 
 'use strict';
 
+const { userStore } = require('../user/user-store');
+
 module.exports = {
     isAuthorizedGuard: (req, res, next) => {
 
-        if (req.cookies['id_token'] !== 'TOKEN') {
+        if (req.cookies['id_token'] !== userStore.getUserById({userId: 'foobar'}).token) {
             res.status(403);
             res.send({
                 'errors': [

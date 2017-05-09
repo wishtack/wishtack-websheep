@@ -9,7 +9,7 @@
 
 const jwt = require('jsonwebtoken');
 
-const { userStore } = require('./../../auth/user/user-store');
+const { userStore } = require('../../user/user-store');
 
 module.exports = (req, res, next) => {
 

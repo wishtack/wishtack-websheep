@@ -12,7 +12,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 
 const { isAuthenticatedWithVerificationGuard, isOwnerGuard } = require('./guards');
-const { userStore } = require('../auth/user/user-store');
+const { userStore } = require('../user/user-store');
 
 const router = express.Router();
 
