@@ -5,12 +5,12 @@ Websheep is a willingly vulnerable set of applications and ReSTful APIs.
 
 It is meant to demo and learn common vulnerabilities on frontend JavaScript applications and ReSTful APIs.
 * Broken Authentication, Session Management and Access Control.
-* CSRF (Cross-Site Request Forgery).
-* JWT (Json Web Token) issues.
+* CSRF (Cross-Site Request Forgery). [Learn more about CORS & CSRF](https://blog.wishtack.com/rest-apis-best-practices-and-security/#11.5)
+* JWT (Json Web Token) issues. [Learn more about JWT security](https://blog.wishtack.com/rest-apis-best-practices-and-security/#11.10.5)
 * Code Injection. *[not implemented yet]*
 * OAuth2, OpenID Connect (Session Fixation). *[not implemented yet]*
 
-[More about ReSTful APIs](https://blog.wishtack.com/rest-apis-best-practices-and-security/)
+[Learn more about ReSTful APIs Best Pratcices & Security](https://blog.wishtack.com/rest-apis-best-practices-and-security/)
 
 # Quickstart
 
