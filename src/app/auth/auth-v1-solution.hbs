@@ -1,0 +1,56 @@
+{{#section 'head'}}
+    <script>
+        window.API_BASE_URL = '/auth/v1';
+    </script>
+
+    <script>
+
+        const apiBaseUrl = window.API_BASE_URL;
+
+        fetch(`${apiBaseUrl}/tokens`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: 'foobar',
+                password: '123456'
+            })
+        })
+
+                /* Retrieve John DOE's data using Foo BAR's credentials. */
+                .then((response) => response.json())
+                .then((data) => fetch(`${apiBaseUrl}/users/johndoe`, {
+                    headers: {
+                        'Authorization': `Bearer ${data.token}`
+                    }
+                }))
+
+                /* Display result. */
+                .then((response) => response.json())
+                .then((data) => {
+
+                    let outputElement = document.querySelector('#wt-output');
+                    outputElement.innerHTML = `
+                    <div>
+                        <span>Name: </span>
+                        <span class="wt-firstname"></span>
+                        <span class="wt-lastname"></span>
+                    </div>
+                    <div>
+                        <span>Address: </span>
+                        <span class="wt-address"></span>                    </div>
+                    `;
+
+                    outputElement.querySelector('.wt-firstname').textContent = data.firstName;
+                    outputElement.querySelector('.wt-lastname').textContent = data.lastName;
+                    outputElement.querySelector('.wt-address').textContent = data.address;
+                });
+
+    </script>
+
+{{/section}}
+
+<p>Using Foo BAR's credentials to get John DOE's data (note that the user's id is easily guessable but can be brute forced).</p>
+
+<div id="wt-output"></div>

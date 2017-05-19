@@ -13,14 +13,22 @@ const express = require('express');
 const tokensRouter = require('./tokens');
 const { isAuthenticatedGuard } = require('./guards');
 const { userStore } = require('../user/user-store');
+const { config } = require('../config');
 
 const router = express.Router();
 
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => res.render('auth/auth-v1', {
-    title: 'Authentication & Authorization V1'
+    title: 'Authentication & Authorization V1',
+    shouldShowSolution: config.shouldShowSolution()
 }));
+
+if (config.shouldShowSolution()) {
+    router.get('/solution', (req, res) => res.render('auth/auth-v1-solution', {
+        title: 'Authentication & Authorization V1 - Solution'
+    }));
+}
 
 router.use('/tokens', tokensRouter);
 
