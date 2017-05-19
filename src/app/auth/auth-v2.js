@@ -14,14 +14,22 @@ const tokensRouter = require('./tokens');
 const { anyPermissionGuard, isAdminPermission, isAuthenticatedGuard } = require('./guards');
 const { User } = require('../user/user');
 const { userStore } = require('../user/user-store');
+const { config } = require('../config');
 
 const router = express.Router();
 
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => res.render('auth/auth-v2', {
+    shouldShowSolution: config.shouldShowSolution(),
     title: 'Authentication & Authorization V2'
 }));
+
+if (config.shouldShowSolution()) {
+    router.get('/solution', (req, res) => res.render('auth/auth-v2-solution', {
+        title: 'Authentication & Authorization V2 - Solution'
+    }));
+}
 
 router.use('/tokens', tokensRouter);
 

@@ -20,8 +20,8 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => res.render('auth/auth-v1', {
-    title: 'Authentication & Authorization V1',
-    shouldShowSolution: config.shouldShowSolution()
+    shouldShowSolution: config.shouldShowSolution(),
+    title: 'Authentication & Authorization V1'
 }));
 
 if (config.shouldShowSolution()) {
