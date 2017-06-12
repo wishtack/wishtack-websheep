@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 
+const { config } = require('../config');
 const { isAuthenticatedWithVerificationGuard, isOwnerGuard } = require('./guards');
 const { userStore } = require('../user/user-store');
 
@@ -22,8 +23,15 @@ process.env.JWT_HMAC_SECRET = 'MY_INSECURE_JWT_HMAC_SECRET';
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => res.render('jwt/jwt-v2', {
+    shouldShowSolution: config.shouldShowSolution(),
     title: 'JWT V2'
 }));
+
+if (config.shouldShowSolution()) {
+    router.get('/solution', (req, res) => res.render('jwt/jwt-v2-solution', {
+        title: 'JWT V2 - Solution'
+    }));
+}
 
 router.use('/tokens', (req, res) => {
 

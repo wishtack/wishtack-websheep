@@ -1,13 +1,14 @@
 {
   "name": "wishtack-websheep",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "",
   "main": "src/app.js",
   "scripts": {
+    "start": "npm run start:app",
     "start:app": "node src/app",
     "start:app:solution": "SHOW_SOLUTION=true node src/app",
     "start:attacker": "http-server src/attacker",
-    "start": "npm-run-all --parallel start:*",
+    "start:solution": "npm-run-all --parallel start:app:solution start:attacker",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Wishtack",

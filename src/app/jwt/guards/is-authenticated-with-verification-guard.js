@@ -23,7 +23,13 @@ module.exports = (req, res, next) => {
     }
 
     try {
+
         claims = jwt.verify(token, process.env.JWT_HMAC_SECRET);
+
+        /* @hack: For some stupid reason, `jwt.verify` might return a string... */
+        if (typeof claims === 'string') {
+            claims = JSON.parse(claims);
+        }
     }
     catch (error) {
         res.sendStatus(403);

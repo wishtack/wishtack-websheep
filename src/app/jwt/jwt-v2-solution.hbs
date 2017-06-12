@@ -1,0 +1,71 @@
+{{#section 'head'}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/7.2.1/jsrsasign-all-min.js"></script>
+
+    <script>
+        window.API_BASE_URL = '/jwt/v2';
+    </script>
+
+    <script>
+        const apiBaseUrl = window.API_BASE_URL;
+        const targetUserName = 'johndoe';
+
+        /* Cause an error by asking for an unexisting user. */
+        fetch(`${apiBaseUrl}/tokens`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: 'xxxxxx',
+                password: 'xxxxxx'
+            })
+        })
+                .then((response) => response.json())
+                .then((data) => {
+
+                    let secret = data.errors[0].environment.JWT_HMAC_SECRET;
+
+                    let token = KJUR.jws.JWS.sign(
+                        'HS256',
+                        {cty: 'JWT'},
+                        {sub: targetUserName},
+                        secret
+                    );
+
+                    return fetch(`${apiBaseUrl}/users/${targetUserName}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+
+                })
+                .then((response) => response.json())
+                .then((data) => {
+
+                    let outputElement = document.querySelector('#wt-output');
+                    outputElement.innerHTML = `
+                    <div>
+                        <span>Name: </span>
+                        <span class="wt-firstname"></span>
+                        <span class="wt-lastname"></span>
+                    </div>
+                    <div>
+                        <span>Address: </span>
+                        <span class="wt-address"></span>
+                    </div>
+                    `;
+
+                    outputElement.querySelector('.wt-firstname').textContent = data.firstName;
+                    outputElement.querySelector('.wt-lastname').textContent = data.lastName;
+                    outputElement.querySelector('.wt-address').textContent = data.address;
+
+                });
+
+    </script>
+
+{{/section}}
+
+<p>Using Foo BAR's credentials to get a JWT that we forge as John DOE's token.</p>
+
+<div id="wt-output"></div>
