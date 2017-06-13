@@ -13,6 +13,7 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const rsaPemToJwk = require('rsa-pem-to-jwk');
 
+const { config } = require('../config');
 const { isAuthenticatedWithRsaVerificationGuard, isOwnerGuard } = require('./guards');
 const { userStore } = require('../user/user-store');
 
@@ -21,8 +22,15 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 router.get('/', (req, res) => res.render('jwt/jwt-v3', {
+    shouldShowSolution: config.shouldShowSolution(),
     title: 'JWT V3'
 }));
+
+if (config.shouldShowSolution()) {
+    router.get('/solution', (req, res) => res.render('jwt/jwt-v3-solution', {
+        title: 'JWT V3 - Solution'
+    }));
+}
 
 router.use('/tokens', (req, res) => {
 

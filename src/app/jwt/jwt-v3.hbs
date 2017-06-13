@@ -5,6 +5,10 @@
     <script src="/assets/app.js"></script>
 {{/section}}
 
+{{#if shouldShowSolution}}
+    <a href="/jwt/v3/solution">SHOW SOLUTION</a>
+{{/if}}
+
 <p>Here are Foo BAR's credentials "foobar:123456". Try to steal John DOE's data.</p>
 <p>HINT: Analyze the token.</p>
 <p><span>HINT: The public key is here: </span><a href="/jwt/v3/key">/jwt/v3/key</a><span>.</span></p>
