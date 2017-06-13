@@ -7,6 +7,7 @@ It is meant to demo and learn common vulnerabilities on frontend JavaScript appl
 * Broken Authentication, Session Management and Access Control.
 * CSRF (Cross-Site Request Forgery). [Learn more about CORS & CSRF](https://blog.wishtack.com/rest-apis-best-practices-and-security/#11.5)
 * JWT (Json Web Token) issues. [Learn more about JWT security](https://blog.wishtack.com/rest-apis-best-practices-and-security/#11.10.5)
+* ReDoS issues.
 * Code Injection. *[not implemented yet]*
 * OAuth2, OpenID Connect (Session Fixation). *[not implemented yet]*
 
@@ -44,7 +45,8 @@ There are some helpful tools out there:
 Run your attack by opening `http://localhost:8080` on your browser.
 
 ## Demo
-You can run the attack demo by opening `http://localhost:8080/attack.html` on your browser.
+You can see the solution demo by running `npm run start:solution`.
+You can run the C.S.R.F. attack demo by opening `http://localhost:8080/attack.html` on your browser.
 
 # ReSTful APIs Security documentation
 Here's a white paper that describes common ReSTful APIs vulnerabilities: [ReST APIs Best Practices and Security](https://blog.wishtack.com/rest-apis-best-practices-and-security/)

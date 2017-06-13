@@ -16,6 +16,7 @@ const path = require('path');
 const auth = require('./auth/auth');
 const csrf = require('./csrf/csrf');
 const jwt = require('./jwt/jwt');
+const redos = require('./redos/redos');
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/auth', auth);
 app.use('/csrf', csrf);
 app.use('/jwt', jwt);
+app.use('/redos', redos);
 
 app.get('/', (req, res) => res.render('index', {
     title: 'Welcome to Websheep'
