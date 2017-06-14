@@ -14,6 +14,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 
 const auth = require('./auth/auth');
+const codeInjection = require('./code-injection/code-injection');
 const csrf = require('./csrf/csrf');
 const jwt = require('./jwt/jwt');
 const redos = require('./redos/redos');
@@ -37,6 +38,7 @@ app.use(cookieParser());
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.use('/auth', auth);
+app.use('/code-injection', codeInjection);
 app.use('/csrf', csrf);
 app.use('/jwt', jwt);
 app.use('/redos', redos);

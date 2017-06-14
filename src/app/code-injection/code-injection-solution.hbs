@@ -1,0 +1,120 @@
+{{#section 'head'}}
+    <script>
+
+        class State {
+
+            constructor() {
+                this.formula = null;
+                this.result = null;
+            }
+
+        }
+
+        class StateStore {
+
+            constructor() {
+                this._callbackList = [];
+                this._state = null;
+            }
+
+            onStateUpdate(callback) {
+                this._callbackList.push(callback);
+            }
+
+            updateState({state}) {
+                this._state = Object.assign(new State(), this._state, state);
+                this._callbackList.forEach((callback) => callback({state: state}));
+            }
+
+        }
+
+        class CalculatorComponent {
+
+            constructor({apiBaseUrl, stateStore} = {}) {
+                this._apiBaseUrl = apiBaseUrl;
+                this._stateStore = stateStore;
+                this._stateStore.onStateUpdate(({state}) => this._render({state}));
+            }
+
+            _render({state}) {
+
+                let element = document.querySelector('#wt-calculator');
+
+                element.innerHTML = `
+<h2>Try out our fake machine learning calculator:</h2>
+<form>
+
+    <input
+        name="formula"
+        placeholder="Formula"
+        type="text">
+
+    <button type="submit">COMPUTE</button>
+
+</form>
+<div id="wt-result"></div>
+`;
+
+                if (state.formula != null) {
+                    element.querySelector('input[name="formula"]').value = state.formula;
+                }
+                element.querySelector('#wt-result').textContent = state.result;
+
+                element.querySelector('form').addEventListener('submit', (event) => {
+
+                    event.preventDefault();
+
+                    let formula = event.target.querySelector('input[name="formula"]').value;
+
+                    fetch(`${this._apiBaseUrl}/formulas`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            formula: formula
+                        })
+                    })
+                            .then((response) => response.json())
+                            .then((data) => {
+
+                                let { formula, result } = data;
+
+                                let state = {
+                                    formula: formula,
+                                    result: result
+                                };
+
+                                this._stateStore.updateState({
+                                    state: state
+                                });
+
+                            });
+
+                });
+
+            }
+
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const stateStore = new StateStore();
+
+            new CalculatorComponent({apiBaseUrl: '/code-injection', stateStore: stateStore});
+
+            stateStore.updateState({state: {}});
+
+        });
+
+    </script>
+
+{{/section}}
+
+{{#if shouldShowSolution}}
+    <a href="/code-injection/solution">SHOW SOLUTION</a>
+{{/if}}
+
+<p>Try to steal John DOE's password.</p>
+
+<div id="wt-calculator"></div>
