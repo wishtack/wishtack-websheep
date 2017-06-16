@@ -1,6 +1,6 @@
 {
   "name": "wishtack-websheep",
-  "version": "0.17.2",
+  "version": "0.17.3",
   "description": "",
   "main": "src/app.js",
   "scripts": {
