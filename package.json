@@ -14,16 +14,16 @@
   "author": "Wishtack",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "1.17.1",
-    "cookie-parser": "1.4.3",
-    "cors": "2.8.3",
-    "express": "4.15.2",
-    "express-handlebars": "3.0.0",
-    "express-handlebars-sections": "1.0.1",
-    "http-server": "0.10.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "express-handlebars-sections": "^1.0.1",
+    "http-server": "^0.11.1",
     "jsonwebtoken": "4.0.0",
-    "jwk-to-pem": "1.2.6",
-    "npm-run-all": "4.0.2",
-    "rsa-pem-to-jwk": "1.1.3"
+    "jwk-to-pem": "^2.0.0",
+    "npm-run-all": "^4.1.3",
+    "rsa-pem-to-jwk": "^1.1.3"
   }
 }
