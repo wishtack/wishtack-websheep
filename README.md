@@ -8,7 +8,7 @@ It is meant to demo and learn common vulnerabilities on frontend JavaScript appl
 * CSRF (Cross-Site Request Forgery). [Learn more about CORS & CSRF](https://blog.wishtack.com/rest-apis-best-practices-and-security/#11.5)
 * JWT (Json Web Token) issues. [Learn more about JWT security](https://blog.wishtack.com/rest-apis-best-practices-and-security/#11.10.5)
 * ReDoS issues.
-* Code Injection. *[not implemented yet]*
+* Code Injection.
 * OAuth2, OpenID Connect (Session Fixation). *[not implemented yet]*
 
 [Learn more about ReSTful APIs Best Pratcices & Security](https://blog.wishtack.com/rest-apis-best-practices-and-security/)
