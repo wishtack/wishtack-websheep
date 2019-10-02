@@ -65,6 +65,20 @@ router.patch(
     anyPermissionGuard(isAdminPermission, isUserOwnerPermission),
     (req, res) => {
 
+        if (Object.entries(req.body).length === 0) {
+            res
+                .status(400)
+                .send({
+                    errors: [
+                        {
+                            type: 'content-type-missing',
+                            message: 'Body is empty... did you set the right content type 😉?'
+                        }
+                    ]
+                });
+            return;
+        }
+
         let userId = req.params.userId;
 
         let user = userStore.getUserById({userId: userId});
