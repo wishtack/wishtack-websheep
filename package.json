@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "npm-run-all --parallel start:app start:attacker",
+    "start": "npm run start:app",
+    "start:all": "npm-run-all --parallel start:app start:attacker",
     "start:app": "node src/app",
     "start:app:solution": "SHOW_SOLUTION=true node src/app",
     "start:attacker": "http-server src/attacker",
