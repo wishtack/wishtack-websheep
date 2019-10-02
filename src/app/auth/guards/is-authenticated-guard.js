@@ -22,7 +22,7 @@ module.exports = (req, res, next) => {
     user = userStore.getUserByToken({token: token});
 
     if (user == null) {
-        res.sendStatus(403);
+        res.sendStatus(401);
         return;
     }
 
