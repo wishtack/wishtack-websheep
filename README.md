@@ -21,7 +21,7 @@ npm install // or yarn install
 npm start // or yarn start
 ```
 
-You will end up with two severs running locally:
+You will end up with two servers running locally:
 * The vulnerable application running on `http://localhost:3000`.
 * The attacking application running on `http://localhost:8080`.
 
